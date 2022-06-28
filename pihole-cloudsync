@@ -22,6 +22,8 @@ update='December 26, 2020'
 #  --initpull				Initialize Secondary Pi-hole in "Pull" mode
 #  --push, --upload, --up, -u		Push (upload) your Pi-hole lists to a remote Git repo
 #  --pull, --download, --down, -d	Pull (download) your lists from a remote Git repo
+#  --setupcronpush            Setup cronjob to push daily
+#  --setupcronpull            Setup cronjob to pull daily
 #  --help, -h, -?			Show the current version of pihole-cloudsync
 #  --version, -v			Show version number
 
@@ -165,6 +167,16 @@ pull () {
                 exit 0
         fi
 }
+setup_cron_push () {
+    echo "Setting cron job for push"
+    (crontab -l ; echo "00 01,07,13,19 * * * sudo /usr/local/bin/pihole-cloudsync/pihole-cloudsync --push > /dev/null 2>&1") | crontab 
+    exit 0
+}
+setup_cron_pull () {
+    echo "Setting cron job for pull"
+    (crontab -l ; echo "05 01,07,13,19 * * * sudo /usr/local/bin/pihole-cloudsync/pihole-cloudsync --pull > /dev/null 2>&1") | crontab 
+    exit 0
+}
 ###########################################################################
 # Check to see whether a command line option was provided
 if [ -z "$1" ]
@@ -199,6 +211,16 @@ do
         echo "$arg option detected. Running in Pull/Download mode."
 	pull
         exit 0
+    elif [ "$arg" == "--setupcronpush" ];
+    then
+    echo "$arg option detected."
+    setup_cron_push
+    exit 0
+    elif [ "$arg" == "--setupcronpull" ];
+    then
+    echo "$arg option detected."
+    setup_cron_pull
+    exit 0
     # Help - Displays help dialog
     elif [ "$arg" == "--help" ] || [ "$arg" == "-h" ] || [ "$arg" == "-?" ]
     then
