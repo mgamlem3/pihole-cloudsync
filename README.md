@@ -81,7 +81,9 @@ Once each Pi-hole's local Git repo has been configured to save your login creden
 ## Automating with cron
 The simplest way is to automate `pihole-cloudsync` is to set a "push" cron job on your Primary Pi-hole that runs a few times a day, then set a "pull" cron job on each Secondary Pi-hole that pulls in any changes a few minutes after your Primary pushes them.
 
-Once you can successfully run `pihole-cloudsync --push` from the command line on your Primary Pi-hole, do `crontab -e` (or `sudo crontab -e` if you're not logged in as the root user) and create a cron entry such as:
+Once you can successfully run `pihole-cloudsync --push` from the command line on your Primary Pi-hole you can setup the cron job. This can be done by running `pihole-cloudsync --setupcronpush` or `pihole-cloudsync --setupcronpull`.
+
+You can also do this manually using `crontab -e` (or `sudo crontab -e` if you're not logged in as the root user) and create a cron entry such as:
 
 `00 01,07,13,19 * * * sudo /usr/local/bin/pihole-cloudsync/pihole-cloudsync --push > /dev/null 2>&1 #Push Master Pi-hole Lists to remote Git repo`
 
