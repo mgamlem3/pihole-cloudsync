@@ -106,6 +106,8 @@ pull_initialize() {
 
     # Restart Pi-hole to pick up changes
     $SUDO pihole -g
+    $SUDO pihole -t
+    $SUDO pihole -d
 
     # Display success messages
     echo "Local Pi-hole initialized in Pull mode and first pull successfully completed."
