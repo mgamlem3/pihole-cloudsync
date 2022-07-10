@@ -167,7 +167,7 @@ pull() {
             $SUDO sqlite3 $gravity_db "DELETE FROM domainlist;"
             $SUDO sqlite3 $gravity_db -header -csv ".import domainlist.csv domainlist"
         fi
-        
+
         $SUDO pihole -g
         echo 'Done!'
         exit 0
