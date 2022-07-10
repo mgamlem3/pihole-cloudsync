@@ -168,7 +168,7 @@ pull() {
             $SUDO sqlite3 $gravity_db "DELETE FROM domainlist;"
             $SUDO sqlite3 $gravity_db -header -csv ".import domainlist.csv domainlist"
         fi
-        
+
         $SUDO pihole -g
         echo 'Done!'
         exit 0
@@ -179,6 +179,7 @@ pull() {
 }
 setup_cron_push() {
     echo "Setting cron job for push"
+    $SUDO crontab -e
     (
         crontab -l
         echo "00 01,07,13,19 * * * sudo /usr/local/bin/pihole-cloudsync/pihole-cloudsync --push > /dev/null 2>&1"
@@ -188,6 +189,7 @@ setup_cron_push() {
 setup_cron_pull() {
     echo "Setting cron job for pull"
     (
+        $SUDO crontab -e
         crontab -l
         echo "05 01,07,13,19 * * * sudo /usr/local/bin/pihole-cloudsync/pihole-cloudsync --pull > /dev/null 2>&1"
     ) | crontab
