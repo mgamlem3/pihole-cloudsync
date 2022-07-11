@@ -9,8 +9,8 @@
 # Extended by Michael Gamlem III (michael@mgamlem3.com)
 # https://github.com/mgamlem3/pihole-cloudsync
 
-version='5.1'
-update='June 2022'
+version='5.1.1'
+update='July 2022'
 
 # SETUP
 # Follow the instructions in the README to set up your own private Git
