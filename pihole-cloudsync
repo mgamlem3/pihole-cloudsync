@@ -101,7 +101,7 @@ pull_initialize() {
 
     if [ -s domainlist.csv ]; then
         $SUDO sqlite3 $gravity_db "DELETE FROM domainlist;"
-        $SUDO sqlite3 $gravity_db -header -csv ".import domainlist.csv domainlist"
+        $SUDO sqlite3 $gravity_db -header -csv ".import --skip 1 domainlist.csv domainlist"
     fi
 
     # Restart Pi-hole to pick up changes
@@ -165,7 +165,7 @@ pull() {
 
         if [ -s domainlist.csv ]; then
             $SUDO sqlite3 $gravity_db "DELETE FROM domainlist;"
-            $SUDO sqlite3 $gravity_db -header -csv ".import domainlist.csv domainlist"
+            $SUDO sqlite3 $gravity_db -header -csv ".import --skip 1 domainlist.csv domainlist"
         fi
 
         $SUDO pihole -g
